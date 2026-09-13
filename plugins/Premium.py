@@ -53,9 +53,12 @@ async def myplan(client, message):
             current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
             time_left = expiry_ist - current_time
             days = time_left.days
-            hours, remainder = divmod(time_left.seconds, 3600)
-            minutes, seconds = divmod(remainder, 60)
-            time_left_str = f"{days} ᴅᴀʏꜱ, {hours} ʜᴏᴜʀꜱ, {minutes} ᴍɪɴᴜᴛᴇꜱ"
+            if days < 0:
+                time_left_str = "Expired"
+            else:
+                hours, remainder = divmod(time_left.seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                time_left_str = f"{days} ᴅᴀʏꜱ, {hours} ʜᴏᴜʀꜱ, {minutes} ᴍɪɴᴜᴛᴇꜱ"
 
             caption = (
                 f"⚜️ <b>ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀ ᴅᴀᴛᴀ :</b>\n\n"
@@ -100,9 +103,12 @@ async def get_premium(client, message):
             current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
             time_left = expiry_ist - current_time
             days = time_left.days
-            hours, remainder = divmod(time_left.seconds, 3600)
-            minutes, seconds = divmod(remainder, 60)
-            time_left_str = f"{days} days, {hours} hours, {minutes} minutes"
+            if days < 0:
+                time_left_str = "Expired"
+            else:
+                hours, remainder = divmod(time_left.seconds, 3600)
+                minutes, seconds = divmod(remainder, 60)
+                time_left_str = f"{days} days, {hours} hours, {minutes} minutes"
             await message.reply_text(f"⚜️ ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀ ᴅᴀᴛᴀ :\n\n👤 ᴜꜱᴇʀ : {user.mention}\n⚡ ᴜꜱᴇʀ ɪᴅ : <code>{user_id}</code>\n⏰ ᴛɪᴍᴇ ʟᴇꜰᴛ : {time_left_str}\n⌛️ ᴇxᴘɪʀʏ ᴅᴀᴛᴇ : {expiry_str_in_ist}")
         else:
             await message.reply_text("ɴᴏ ᴀɴʏ ᴘʀᴇᴍɪᴜᴍ ᴅᴀᴛᴀ ᴏꜰ ᴛʜᴇ ᴡᴀꜱ ꜰᴏᴜɴᴅ ɪɴ ᴅᴀᴛᴀʙᴀꜱᴇ !")
@@ -149,23 +155,31 @@ async def premium_user(client, message):
     aa = await message.reply_text("<i>ꜰᴇᴛᴄʜɪɴɢ...</i>")
     new = " ᴘʀᴇᴍɪᴜᴍ ᴜꜱᴇʀꜱ ʟɪꜱᴛ :\n\n"
     user_count = 1
-    users = await db.get_all_users()
-    async for user in users:
-        data = await db.get_user(user['id'])
-        if data and data.get("expiry_time"):
-            expiry = data.get("expiry_time") 
-            expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
-            expiry_str_in_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata")).strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
-            current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
-            time_left = expiry_ist - current_time
-            days = time_left.days
+    users = await db.get_all_premium_user_data()
+    async for data in users:
+        expiry = data.get("expiry_time")
+        if not expiry:
+            continue
+        expiry_ist = expiry.astimezone(pytz.timezone("Asia/Kolkata"))
+        expiry_str_in_ist = expiry_ist.strftime("%d-%m-%Y\n⏱️ ᴇxᴘɪʀʏ ᴛɪᴍᴇ : %I:%M:%S %p")            
+        current_time = datetime.datetime.now(pytz.timezone("Asia/Kolkata"))
+        time_left = expiry_ist - current_time
+        days = time_left.days
+        if days < 0:
+            time_left_str = "Expired"
+        else:
             hours, remainder = divmod(time_left.seconds, 3600)
             minutes, seconds = divmod(remainder, 60)
-            time_left_str = f"{days} days, {hours} hours, {minutes} minutes"	 
-            new += f"{user_count}. {(await client.get_users(user['id'])).mention}\n👤 ᴜꜱᴇʀ ɪᴅ : {user['id']}\n⏳ ᴇxᴘɪʀʏ ᴅᴀᴛᴇ : {expiry_str_in_ist}\n⏰ ᴛɪᴍᴇ ʟᴇꜰᴛ : {time_left_str}\n"
-            user_count += 1
-        else:
-            pass
+            time_left_str = f"{days} days, {hours} hours, {minutes} minutes"
+        
+        try:
+            user_obj = await client.get_users(data['id'])
+            mention = user_obj.mention
+        except Exception:
+            mention = f"<a href='tg://user?id={data['id']}'>User</a>"
+            
+        new += f"{user_count}. {mention}\n👤 ᴜꜱᴇʀ ɪᴅ : {data['id']}\n⏳ ᴇxᴘɪʀʏ ᴅᴀᴛᴇ : {expiry_str_in_ist}\n⏰ ᴛɪᴍᴇ ʟᴇꜰᴛ : {time_left_str}\n"
+        user_count += 1
     try:    
         await aa.edit_text(new)
     except MessageTooLong:
@@ -182,10 +196,10 @@ async def plan(client, message):
         f"<b><u>🚫 ᴛʜɪs ᴜsᴇʀs ᴛʀʏ ᴛᴏ ᴄʜᴇᴄᴋ /plan</u> {temp.B_LINK}\n\n"
         f"- ɪᴅ - `{user_id}`\n- ɴᴀᴍᴇ - {users}</b>")
     btn = [[
-            InlineKeyboardButton('• ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ •', callback_data='buy_info'),
+            InlineKeyboardButton('• ʙᴜʏ ᴘʀᴇᴍɪᴜᴍ •', callback_data='buy_info', style=enums.ButtonStyle.DANGER),
         ],[
-            InlineKeyboardButton('• ʀᴇꜰᴇʀ ꜰʀɪᴇɴᴅꜱ', callback_data='reffff'),
-            InlineKeyboardButton('ꜰʀᴇᴇ ᴛʀɪᴀʟ •', callback_data='free')
+            InlineKeyboardButton('• ʀᴇꜰᴇʀ ꜰʀɪᴇɴᴅꜱ', callback_data='reffff', style=enums.ButtonStyle.PRIMARY),
+            InlineKeyboardButton('ꜰʀᴇᴇ ᴛʀɪᴀʟ •', callback_data='free', style=enums.ButtonStyle.SUCCESS)
         ],[
             InlineKeyboardButton('🚫 ᴄʟᴏꜱᴇ 🚫', callback_data='close_data', style=enums.ButtonStyle.DANGER)
         ]]
@@ -242,12 +256,12 @@ async def premium_button(client, callback_query: CallbackQuery):
 async def pre_checkout_handler(client, query: PreCheckoutQuery):
     try:
         if query.payload.startswith("dreamxpremium_"):
-            await query.answer(success=True)
+            await query.answer(ok=True)
         else:
-            await query.answer(success=False, error="⚠️ Invalid Purchase Type.")
+            await query.answer(ok=False, error_message="⚠️ Invalid Purchase Type.")
     except Exception as e:
         logger.error("Pre-checkout error: %s", e)
-        await query.answer(success=False, error="🚫 Unexpected Error Occurred.")
+        await query.answer(ok=False, error_message="🚫 Unexpected Error Occurred.")
 
 @Client.on_message(filters.successful_payment)
 async def successful_premium_payment(client, message):
@@ -275,5 +289,4 @@ async def successful_premium_payment(client, message):
     except Exception as e:
         logger.error("Error Processing Premium Payment: %s", e)
         await message.reply("✅ Thank You For Your Payment! (Error Logging Details)")
-
 
