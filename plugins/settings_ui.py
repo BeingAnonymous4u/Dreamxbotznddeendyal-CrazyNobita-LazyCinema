@@ -3,9 +3,10 @@ import asyncio
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import MessageNotModified, FloodWait
-from info import IS_VERIFY, LOG_API_CHANNEL
+from info import IS_VERIFY, LOG_CHANNEL
 from utils import get_settings, save_group_settings, delete_group_setting, is_check_admin
 from database.users_chats_db import db
+
 logger = logging.getLogger(__name__)
 
 async def get_invite_link(client, grp_id):
@@ -69,7 +70,7 @@ async def handle_log_channel_menu(client, query):
 
     btn = [[
         InlineKeyboardButton('ᴄʜᴀɴɢᴇ ʟᴏɢ', callback_data=f'changelog#{grp_id}'),
-        InlineKeyboardButton('ʀᴇᴍᴏᴠᴇ ʟᴏɢ', callback_data=f'removelog#{grp_id}', style=enums.ButtonStyle.DANGER),
+        InlineKeyboardButton('ʀᴇᴍᴏᴠᴇ ʟᴏɢ', callback_data=f'removelog#{grp_id}', style=enums.ButtonStyle.DANGER),  # type: ignore
     ],[
         InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'grp_pm#{grp_id}')
     ]]
@@ -106,7 +107,7 @@ async def handle_forcesub_menu(client, query):
 
     btn = [[
         InlineKeyboardButton('ꜱᴇᴛ ꜰꜱᴜʙ', callback_data=f'set_fsub_ui#{grp_id}'),
-        InlineKeyboardButton('ʀᴇᴍᴏᴠᴇ ꜰꜱᴜʙ', callback_data=f'remove_fsub_ui#{grp_id}', style=enums.ButtonStyle.DANGER),
+        InlineKeyboardButton('ʀᴇᴍᴏᴠᴇ ꜰꜱᴜʙ', callback_data=f'remove_fsub_ui#{grp_id}', style=enums.ButtonStyle.DANGER),  # type: ignore
     ],[
         InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'grp_pm#{grp_id}')
     ]]
@@ -138,7 +139,7 @@ async def handle_custom_caption_menu(client, query):
 
     btn = [[
         InlineKeyboardButton('ᴄᴜꜱᴛᴏᴍ ᴄᴀᴘᴛɪᴏɴ', callback_data=f'changecaption#{grp_id}'),
-        InlineKeyboardButton('ʀᴇᴍᴏᴠᴇ ᴄᴀᴘᴛɪᴏɴ', callback_data=f'removecaption#{grp_id}', style=enums.ButtonStyle.DANGER),
+        InlineKeyboardButton('ʀᴇᴍᴏᴠᴇ ᴄᴀᴘᴛɪᴏɴ', callback_data=f'removecaption#{grp_id}', style=enums.ButtonStyle.DANGER),  # type: ignore
     ],[
         InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'grp_pm#{grp_id}')
     ]]
@@ -169,6 +170,7 @@ async def remove_log(client, query):
 
 @Client.on_callback_query(filters.regex(r'^set_fsub_ui'))
 async def set_fsub_ui(client, query):
+    await query.answer()
     _, grp_id = query.data.split("#")
     user_id = query.from_user.id if query.from_user else None
     if not await is_check_admin(client, int(grp_id), user_id):
@@ -242,6 +244,7 @@ async def remove_fsub_ui(client, query):
 
 @Client.on_callback_query(filters.regex(r'^changelog'))
 async def change_log(client, query):
+    await query.answer()
     grp_id = query.data.split("#")[1]
     user_id = query.from_user.id if query.from_user else None
     if not await is_check_admin(client, int(grp_id), user_id):
@@ -274,10 +277,16 @@ async def change_log(client, query):
                 await query.message.reply("<b>ɪɴᴠᴀʟɪᴅ ᴄʜᴀɴɴᴇʟ ɪᴅ! ᴍᴜꜱᴛ ʙᴇ ᴀ ɴᴜᴍʙᴇʀ ꜱᴛᴀʀᴛɪɴɢ ᴡɪᴛʜ -100 (ᴇxᴀᴍᴘʟᴇ: -100123456789)</b>")
         else:
             await query.message.reply("<b>ɪɴᴠᴀʟɪᴅ ᴄʜᴀɴɴᴇʟ ɪᴅ! ᴍᴜꜱᴛ ʙᴇ ᴀ ɴᴜᴍʙᴇʀ ꜱᴛᴀʀᴛɪɴɢ ᴡɪᴛʜ -100 (ᴇxᴀᴍᴘʟᴇ: -100123456789)</b>")
-    await m.delete()
-    await log_msg.delete()
+    try:
+        await m.delete()
+        await log_msg.delete()
+    except Exception:
+        pass
     await save_group_settings(int(grp_id), f'log', int(log_msg.text))
-    await client.send_message(LOG_API_CHANNEL, f"#Set_Log_Channel\n\nɢʀᴏᴜᴘ ɴᴀᴍᴇ : {chat.title}\n\nɢʀᴏᴜᴘ ɪᴅ: {grp_id}\nɪɴᴠɪᴛᴇ ʟɪɴᴋ : {invite_link}\n\nᴜᴘᴅᴀᴛᴇᴅ ʙʏ : {query.from_user.username}")
+    try: 
+        await client.send_message(LOG_CHANNEL, f"#Set_Log_Channel\n\nɢʀᴏᴜᴘ ɴᴀᴍᴇ : {chat.title}\n\nɢʀᴏᴜᴘ ɪᴅ: {grp_id}\nɪɴᴠɪᴛᴇ ʟɪɴᴋ : {invite_link}\n\nᴜᴘᴅᴀᴛᴇᴅ ʙʏ : {query.from_user.username}")
+    except Exception as e:
+        logger.error(e)
     btn = [
         [InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'log_setgs#{grp_id}')]
     ]
@@ -303,6 +312,7 @@ async def remove_caption(client, query):
 
 @Client.on_callback_query(filters.regex(r'^changecaption'))
 async def change_caption(client, query):
+    await query.answer()
     grp_id = query.data.split("#")[1]
     user_id = query.from_user.id if query.from_user else None
     if not await is_check_admin(client, int(grp_id), user_id):
@@ -331,7 +341,10 @@ async def change_caption(client, query):
     await m.delete()
     await caption_msg.delete()
     await save_group_settings(int(grp_id), f'caption', caption_msg.text)
-    await client.send_message(LOG_API_CHANNEL, f"#Set_Caption\n\nɢʀᴏᴜᴘ ɴᴀᴍᴇ : {title}\n\nɢʀᴏᴜᴘ ɪᴅ: {grp_id}\nɪɴᴠɪᴛᴇ ʟɪɴᴋ : {invite_link}\n\nᴜᴘᴅᴀᴛᴇᴅ ʙʏ : {query.from_user.username}")
+    try: 
+        await client.send_message(LOG_CHANNEL, f"#Set_Caption\n\nɢʀᴏᴜᴘ ɴᴀᴍᴇ : {title}\n\nɢʀᴏᴜᴘ ɪᴅ: {grp_id}\nɪɴᴠɪᴛᴇ ʟɪɴᴋ : {invite_link}\n\nᴜᴘᴅᴀᴛᴇᴅ ʙʏ : {query.from_user.username}")
+    except Exception as e:
+        logger.error(e)
     btn = [
         [InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'caption_setgs#{grp_id}')]
     ]
@@ -421,6 +434,7 @@ async def remove_shortener(client, query):
 
 @Client.on_callback_query(filters.regex(r'^set_verify'))
 async def set_shortener(client, query):
+    await query.answer()
     shortner_num = query.data.split("#")[0][-1]
     grp_id = query.data.split("#")[1]
     user_id = query.from_user.id if query.from_user else None
@@ -463,7 +477,10 @@ async def set_shortener(client, query):
     await save_group_settings(int(grp_id), f'shortner{suffix}', url_msg.text)
     await save_group_settings(int(grp_id), f'api{suffix}', key_msg.text)
     log_message = f"#New_Shortner_Set\n\n ꜱʜᴏʀᴛɴᴇʀ ɴᴏ - {shortner_num}\nɢʀᴏᴜᴘ ʟɪɴᴋ - `{invite_link}`\n\nɢʀᴏᴜᴘ ɪᴅ : `{grp_id}`\nᴀᴅᴅᴇᴅ ʙʏ - `{user_id}`\nꜱʜᴏʀᴛɴᴇʀ ꜱɪᴛᴇ - {url_msg.text}\nꜱʜᴏʀᴛɴᴇʀ ᴀᴘɪ - `{key_msg.text}`"
-    await client.send_message(LOG_API_CHANNEL, log_message, disable_web_page_preview=True)
+    try: 
+        await client.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+    except Exception as e:
+        logger.error(e)
 
     btn = [
         [InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'shortner_menu#{shortner_num}#{grp_id}')]
@@ -550,6 +567,7 @@ async def remove_time(client, query):
 
 @Client.on_callback_query(filters.regex(r'^set_time'))
 async def set_time(client, query):
+    await query.answer()
     time_num = query.data.split("#")[0][-1]
     grp_id = query.data.split("#")[1]
     user_id = query.from_user.id if query.from_user else None
@@ -592,7 +610,10 @@ async def set_time(client, query):
     await time_msg.delete()
     await save_group_settings(int(grp_id), key, int(time_msg.text))
     log_message = f"#New_Time_Set\n\n ᴛɪᴍᴇ ɴᴏ - {time_num}\nɢʀᴏᴜᴘ ʟɪɴᴋ - `{invite_link}`\n\nɢʀᴏᴜᴘ ɪᴅ : `{grp_id}`\nᴀᴅᴅᴇᴅ ʙʏ - `{user_id}`\nᴛɪᴍᴇ - {time_msg.text}"
-    await client.send_message(LOG_API_CHANNEL, log_message, disable_web_page_preview=True)
+    try:
+        await client.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+    except Exception as e:
+        logger.error(e)
 
     btn = [
         [InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'time_menu#{time_num}#{grp_id}')]
@@ -666,6 +687,7 @@ async def remove_tutorial(client, query):
 
 @Client.on_callback_query(filters.regex(r'^set_tutorial'))
 async def set_tutorial(client, query):
+    await query.answer()
     tutorial_num = query.data.split("#")[0][-1]
     grp_id = query.data.split("#")[1]
     user_id = query.from_user.id if query.from_user else None
@@ -696,7 +718,10 @@ async def set_tutorial(client, query):
     await tutorial_msg.delete()
     await save_group_settings(int(grp_id), f'tutorial{suffix}', tutorial_msg.text)
     log_message = f"#New_Tutorial_Set\n\n ᴛᴜᴛᴏʀɪᴀʟ ɴᴏ - {tutorial_num}\nɢʀᴏᴜᴘ ʟɪɴᴋ - `{invite_link}`\n\nɢʀᴏᴜᴘ ɪᴅ : `{grp_id}`\nᴀᴅᴅᴇᴅ ʙʏ - `{user_id}`\nᴛᴜᴛᴏʀɪᴀʟ - {tutorial_msg.text}"
-    await client.send_message(LOG_API_CHANNEL, log_message, disable_web_page_preview=True)
+    try:
+        await client.send_message(LOG_CHANNEL, log_message, disable_web_page_preview=True)
+    except Exception as e:
+        logger.error(e)
 
     btn = [
         [InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data=f'tutorial_menu#{tutorial_num}#{grp_id}')]
@@ -720,7 +745,7 @@ async def prompt_group_deletion(client, query):
 
         buttons = [
             [
-                InlineKeyboardButton('ʏᴇs, ᴅᴇʟᴇᴛᴇ', callback_data=f'delete_group#{grp_id}', style=enums.ButtonStyle.DANGER),
+                InlineKeyboardButton('ʏᴇs, ᴅᴇʟᴇᴛᴇ', callback_data=f'delete_group#{grp_id}', style=enums.ButtonStyle.DANGER),  # type: ignore
                 InlineKeyboardButton('ᴄᴀɴᴄᴇʟ', callback_data=f'open_settings#{grp_id}')
             ]
         ]
@@ -758,3 +783,4 @@ async def process_group_deletion(client, query):
     except Exception as e:
         logger.error(f"Callback Error - {e}")
         await query.answer("An error occurred!", show_alert=True)
+
