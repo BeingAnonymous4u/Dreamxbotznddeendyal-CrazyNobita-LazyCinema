@@ -9,7 +9,7 @@ from pyrogram import Client, filters, enums
 from info import CHANNELS, MOVIE_UPDATE_CHANNEL, LINK_PREVIEW, ABOVE_PREVIEW, BAD_WORDS, LANDSCAPE_POSTER, TMDB_POSTER
 from Script import script
 from database.ia_filterdb import save_file
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, LinkPreviewOptions
 from utils import temp
 from pymongo.errors import PyMongoError, DuplicateKeyError
 from pyrogram.errors import MessageIdInvalid, MessageNotModified, FloodWait
@@ -402,7 +402,9 @@ async def send_movie_update(bot, base_name):
                     "parse_mode": enums.ParseMode.HTML
                 }
                 if movie_doc.get("poster_url") and LINK_PREVIEW:
-                    send_params["invert_media"] = ABOVE_PREVIEW
+                    send_params["link_preview_options"] = LinkPreviewOptions(is_disabled=False, show_above_text=ABOVE_PREVIEW)
+                else:
+                    send_params["link_preview_options"] = LinkPreviewOptions(is_disabled=not LINK_PREVIEW)
                 msg = await bot.send_message(**send_params)
                 is_photo = False
 
@@ -456,11 +458,12 @@ async def update_movie_message(bot, base_name):
                     text=text,
                     reply_markup=buttons,
                     parse_mode=enums.ParseMode.HTML,
-                    invert_media=ABOVE_PREVIEW,
-                    disable_web_page_preview=not LINK_PREVIEW
+                    link_preview_options=LinkPreviewOptions(is_disabled=not LINK_PREVIEW, show_above_text=ABOVE_PREVIEW)
                 )
             return
-        except (MessageIdInvalid, MessageNotModified) as e:
+        except MessageNotModified:
+            pass
+        except MessageIdInvalid as e:
             logger.warning(f"Message update skipped due to error: {e}")
             pass
         except Exception:
@@ -568,4 +571,4 @@ def generate_movie_message(movie_doc, base_name):
         episodes=epi_block,
         rating=rating_text,
         search_link=temp.B_LINK
-)
+    )
