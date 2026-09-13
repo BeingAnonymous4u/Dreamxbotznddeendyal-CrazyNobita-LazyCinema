@@ -11,6 +11,7 @@ from utils import users_broadcast, groups_broadcast, temp, get_readable_time, cl
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
 
 logger = logging.getLogger(__name__)
+
 lock = asyncio.Lock()
 
 @Client.on_callback_query(filters.regex(r'^broadcast_cancel'))
@@ -56,7 +57,7 @@ async def broadcast_users(bot, message):
             _, result = await users_broadcast(int(user["id"]), b_msg, is_pin)
             return result
         except Exception:
-            logging.exception(f"Error sending broadcast to {user['id']}")
+            logger.exception(f"Error sending broadcast to {user['id']}")
             return "Error"
 
     async with lock:
@@ -122,7 +123,6 @@ async def broadcast_group(bot, message):
     await ask.delete()
     if dreamxbotz_user_response.text not in ("Yes", "No"):
         return await message.reply("❌ Invalid input. Broadcast cancelled.")
-
     is_pin = dreamxbotz_user_response.text == "Yes"
     b_msg = message.reply_to_message
     chats = await db.get_all_chats()
@@ -142,7 +142,7 @@ async def broadcast_group(bot, message):
             try:
                 sts = await groups_broadcast(int(chat['id']), b_msg, is_pin)
             except Exception:
-                logging.exception(f"Error broadcasting to group {chat['id']}")
+                logger.exception(f"Error broadcasting to group {chat['id']}")
                 sts = 'Error'
             if sts == "Success":
                 success += 1
