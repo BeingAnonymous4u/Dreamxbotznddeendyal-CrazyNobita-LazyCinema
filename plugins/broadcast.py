@@ -51,11 +51,13 @@ async def broadcast_users(bot, message):
     is_pin = dreamxbotz_user_response.text == "Yes"
     b_msg = message.reply_to_message
     
-    # ✅ FIX: সঠিকভাবে users গেট করুন
+    # ✅ FIX: সঠিকভাবে - cursor সরাসরি async for এ ব্যবহার করুন
     try:
+        users_cursor = db.get_all_users()  # Direct cursor, don't await!
         users_list = []
-        async for user in db.get_all_users():
+        async for user in users_cursor:
             users_list.append(user)
+        
         total_users = len(users_list)
         
         if total_users == 0:
@@ -168,11 +170,13 @@ async def broadcast_group(bot, message):
     is_pin = dreamxbotz_user_response.text == "Yes"
     b_msg = message.reply_to_message
     
-    # ✅ FIX: সঠিকভাবে chats গেট করুন
+    # ✅ FIX: সঠিকভাবে - cursor সরাসরি async for এ ব্যবহার করুন
     try:
+        chats_cursor = db.get_all_chats()  # Direct cursor, don't await!
         chats_list = []
-        async for chat in db.get_all_chats():
+        async for chat in chats_cursor:
             chats_list.append(chat)
+        
         total_chats = len(chats_list)
         
         if total_chats == 0:
@@ -246,7 +250,7 @@ async def broadcast_group(bot, message):
 @Client.on_message(filters.command("clear_junk") & filters.user(ADMINS))
 async def remove_junkuser__db(bot, message):
     try:
-        users = db.get_all_users()
+        users_cursor = db.get_all_users()  # Direct cursor!
         b_msg = message 
         sts = await message.reply_text('ɪɴ ᴘʀᴏɢʀᴇss.... ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ')   
         start_time = time.time()
@@ -256,7 +260,7 @@ async def remove_junkuser__db(bot, message):
         failed = 0
         done = 0
         
-        async for user in users:
+        async for user in users_cursor:
             pti, sh = await clear_junk(int(user['id']), b_msg)
             if not pti:
                 if sh == "Blocked":
@@ -279,9 +283,9 @@ async def remove_junkuser__db(bot, message):
 @Client.on_message(filters.command(["junk_group", "clear_junk_group"]) & filters.user(ADMINS))
 async def junk_clear_group(bot, message):
     try:
-        groups = db.get_all_chats()
+        chats_cursor = db.get_all_chats()  # Direct cursor!
         groups_list = []
-        async for group in groups:
+        async for group in chats_cursor:
             groups_list.append(group)
         
         if not groups_list:
