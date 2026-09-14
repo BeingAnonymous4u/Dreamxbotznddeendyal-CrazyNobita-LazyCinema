@@ -86,30 +86,61 @@ async def pm_text(bot, message):
     content = message.text
     user = message.from_user.first_name
     user_id = message.from_user.id
+    
     if EMOJI_MODE:
         try:
             await message.react(emoji=random.choice(REACTIONS), big=True)
         except Exception:
             await message.react(emoji="⚡️")
             pass
+    
     if content.startswith(("#")):
         return
+    
     try:
         await mdb.update_top_messages(user_id, content)
         pm_search = await db.pm_search_status(bot_id)
+        
         if pm_search:
+            # PM Search enabled - করতে পারবে search
             await auto_filter(bot, message)
         else:
-            await message.reply_text(
-                text=script.PM_SEARCH_DISABLED_TXT.format(user),
-                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("⚝ ᴍɪss ᴘʀᴏᴠɪᴅᴇʀ ʀᴇǫᴜᴇsᴛ ⚝", url=GRP_LNK)]])
-            )
-            await bot.send_message(
-                chat_id=LOG_CHANNEL,
-                text=script.PM_LOG_TXT.format(user, user_id, content)
-            )
-    except Exception:
-        pass
+            # PM Search disabled - মেসেজ দেখাবে
+            logger.info(f"🚫 PM Search Disabled For User: {user_id}")
+            
+            try:
+                await message.reply_text(
+                    text=script.PM_SEARCH_DISABLED_TXT.format(user=user),
+                    reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton("⚝ ᴍɪss ᴘʀᴏᴠɪᴅᴇʀ ʀᴇǫᴜᴇsᴛ ⚝", url=GRP_LNK)]
+                    ])
+                )
+            except Exception as e:
+                logger.error(f"❌ Failed to send PM_SEARCH_DISABLED message: {e}")
+                # Fallback message
+                try:
+                    await message.reply_text(
+                        f"<b>🙋 Hey {user},\n\n"
+                        "ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ ᴏɴʟʏ ɪɴ sᴜᴘᴘᴏʀᴛ ɢʀᴏᴜᴘ!\n\n"
+                        "📝 ᴘʟᴇᴀsᴇ ʀᴇǫᴜᴇsᴛ ɪɴ: {}</b>".format(GRP_LNK),
+                        reply_markup=InlineKeyboardMarkup([
+                            [InlineKeyboardButton("⚝ ᴍɪss ᴘʀᴏᴠɪᴅᴇʀ ʀᴇǫᴜᴇsᴛ ⚝", url=GRP_LNK)]
+                        ])
+                    )
+                except Exception as e2:
+                    logger.error(f"❌ Fallback message also failed: {e2}")
+            
+            # Log করুন
+            try:
+                await bot.send_message(
+                    chat_id=LOG_CHANNEL,
+                    text=script.PM_LOG_TXT.format(user, user_id, content)
+                )
+            except Exception as e:
+                logger.error(f"❌ Failed to log PM message: {e}")
+    
+    except Exception as e:
+        logger.error(f"❌ Error in pm_text handler: {e}", exc_info=True)
 
 
 @Client.on_callback_query(filters.regex(r"^reffff"))
