@@ -1,0 +1,3 @@
+# Bot Logs File
+# This file will contain bot error logs
+
