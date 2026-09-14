@@ -412,8 +412,11 @@ async def font_command(client, message):
 
         title = parts[1].strip()
 
-        await message.reply_text(
-            title,
+        # Use client.send_message because this Pyrogram version
+        # does not support reply_to_message_id in Message.reply()
+        await client.send_message(
+            chat_id=message.chat.id,
+            text=title,
             reply_markup=first_page_buttons(),
             reply_to_message_id=message.id
         )
@@ -425,9 +428,13 @@ async def font_command(client, message):
             e
         )
 
-        await message.reply_text(
-            "❌ Something went wrong while opening the font generator."
-        )
+        try:
+            await client.send_message(
+                chat_id=message.chat.id,
+                text="❌ Something went wrong while opening the font generator."
+            )
+        except Exception:
+            pass
 
 
 # ============================================================
