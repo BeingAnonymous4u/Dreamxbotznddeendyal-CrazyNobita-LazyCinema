@@ -96,35 +96,35 @@ async def start(client, message):
             await dlt.delete()
             return         
         if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-                        buttons = [[
-                InlineKeyboardButton(
-                    '❤️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ❤️',
-                    url=f'https://t.me/{temp.U_NAME}?startgroup=true',
-                    style=enums.ButtonStyle.PRIMARY
-                )
-            ], [
-                InlineKeyboardButton(
-                    '🍁 Update Channel 🍁',
-                    url=UPDATE_CHNL_LNK,
-                    style=enums.ButtonStyle.SUCCESS
-                )
-            ]]
-
-            reply_markup = InlineKeyboardMarkup(buttons)
-
-            await message.reply(
-                script.GSTART_TXT.format(
-                    message.from_user.mention
-                    if message.from_user
-                    else message.chat.title,
-                    temp.U_NAME,
-                    temp.B_NAME
-                ),
-                reply_markup=reply_markup
+                                buttons = [[
+            InlineKeyboardButton(
+                '❤️ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ❤️',
+                url=f'https://t.me/{temp.U_NAME}?startgroup=true',
+                style=enums.ButtonStyle.PRIMARY
             )
+        ], [
+            InlineKeyboardButton(
+                '🍁 Update Channel 🍁',
+                url=UPDATE_CHNL_LNK,
+                style=enums.ButtonStyle.SUCCESS
+            )
+        ]]
 
-            await sticker.delete()
-            await asyncio.sleep(2)
+        reply_markup = InlineKeyboardMarkup(buttons)
+
+        await message.reply(
+            script.GSTART_TXT.format(
+                message.from_user.mention
+                if message.from_user
+                else message.chat.title,
+                temp.U_NAME,
+                temp.B_NAME
+            ),
+            reply_markup=reply_markup
+        )
+
+        await sticker.delete()
+        await asyncio.sleep(2)
             if not await db.get_chat(message.chat.id):
                 total=await client.get_chat_members_count(message.chat.id)
                 await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
