@@ -14,28 +14,20 @@ class script(object):
 <b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘʀᴇᴍɪᴜᴍ ꜰᴇᴀᴛᴜʀᴇꜱ.</b></blockquote>"""
 
     
-    HELP_TXT = """⦿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⦿
-<blockquote>🎦 ᴍᴏᴠɪᴇs</blockquote>
-<i>☂ ᴊᴜsᴛ ᴛʏᴘᴇ ᴛʜᴇ ᴍᴏᴠɪᴇ ɴᴀᴍᴇ ✰</i>
-<u>ᴇxᴀᴍᴘʟᴇ</u> ➜
-‣ ˹ <code>RRR</code> ˼ ✾
-‣ ˹ <code>Avatar</code> ˼ & [ ˹ <code>Mahavatar Narshimha</code> ˼ ] ✾
-‣ ˹ <code>KGF Chapter 1</code> ˼ ✾
-‣ ˹ <code> Jawan </code> ˼ ✾
-<b>ɴᴏ ᴇxᴛʀᴀ ᴄᴏᴍᴍᴀɴᴅs ɴᴇᴇᴅᴇᴅ ☑</b>
-⦿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⦿
-<blockquote>📺 ᴡᴇʙ sᴇʀɪᴇs (ᴡɪᴛʜ sᴇᴀsᴏɴ)</blockquote>
-<i>⊡ ᴛʏᴘᴇ sᴇʀɪᴇs ɴᴀᴍᴇ + sᴇᴀsᴏɴ ᴄᴏᴅᴇ ✰</i>
-<u>ᴇxᴀᴍᴘʟᴇ</u> ➜
-‣ ˹ <code>Squid Game S01</code> ˼ ✾
-‣ ˹ <code>Money Heist S01</code> ˼ ✾
-‣ ˹ <code>Mirzapur S01</code> ˼ ✾
-‣ ˹ <code>Breaking Bad S05</code> ˼ ✾
-<b>ᴜsᴇ ғᴏʀᴍᴀᴛ: S01 E01, S02 E01, ETC. ☑</b>
-⦿━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⦿
-<blockquote>⊡ ɴᴏᴛᴇ ➪</blockquote>
-<i>ᴜᴘᴄᴏᴍɪɴɢ ᴍᴏᴠɪᴇs/sᴇʀɪᴇs ᴜᴘʟᴏᴀᴅᴇᴅ ᴏɴ ᴛʜᴇ ɴᴇxᴛ ᴅᴀʏ ⊡
-</i>"""
+    HELP_TXT = """🔹 Sᴇᴀʀᴄʜ Mᴏᴠɪᴇs Iɴ Tʜɪs Fᴏʀᴍᴀᴛ:
+    › ᴀᴠᴀᴛᴀʀ 2009 ✅
+    › ᴀᴠᴀᴛᴀʀ ✅
+    › ᴀᴠᴀᴛᴀʀ 2009 ʜɪɴᴅɪ ✅
+    › ᴀᴠᴀᴛᴀʀ ᴍᴏᴠɪᴇ ❌
+    › ᴀᴠᴀᴛᴀʀ ʜɪɴᴅɪ ᴅᴜʙʙᴇᴅ..❌
+
+🔹 Sᴇᴀʀᴄʜ Wᴇʙ Sᴇʀɪᴇs Iɴ Tʜɪs Fᴏʀᴍᴀᴛ:
+    › ᴠɪᴋɪɴɢs S01 ✅
+    › ᴠɪᴋɪɴɢs S01E01 ✅
+    › ᴠɪᴋɪɴɢs S01 E01 ✅
+    › ᴠɪᴋɪɴɢs S01 ʜɪɴᴅɪ ᴅᴜʙʙ. ❌
+    › ᴠɪᴋɪɴɢs sᴇᴀsᴏɴ 1 ❌
+    › ᴠɪᴋɪɴɢs ᴡᴇʙ sᴇʀɪᴇs ❌ ﻿"""
 
     ABOUT_TXT = """<b>╭────[ ᴍʏ ᴅᴇᴛᴀɪʟs ]────⍟
 ├⍟ Mʏ Nᴀᴍᴇ : <a href=https://t.me/{}>{}</a>
