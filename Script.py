@@ -2,7 +2,7 @@ class script(object):
     START_TXT = """<b><i>👋 Hello {}, {}</b></i> !
 
 <b>𝖬𝗒 𝗇𝖺𝗆𝖾 𝗂𝗌 <a href=https://t.me/{}>{}</a>, 𝖨'𝗆 𝖺𝗇 𝖺𝗎𝗍𝗈 𝖿𝗂𝗅𝗍𝖾𝗋 𝖻𝗈𝗍, 𝖨 𝖼𝖺𝗇 𝗀𝗂𝗏𝖾 𝗒𝗈𝗎 𝗆𝗈𝗏𝗂𝖾𝗌 𝗃𝗎𝗌𝗍 𝖺𝖽𝖽 𝗆𝖾 𝗍𝗈 𝗒𝗈𝗎𝗋 𝗀𝗋𝗈𝗎𝗉 𝖺𝗌 𝖺𝖽𝗆𝗂𝗇 𝖺𝗇𝖽 𝗌𝖾𝖾 𝗆𝗒 𝗉𝗈𝗐𝖾𝗋 😎
-"""
+</b>"""
 
 
     GSTART_TXT = """"<b>ʜᴇʟʟᴏ {},</b>
@@ -10,30 +10,31 @@ class script(object):
 <b>🤖 ɪ ᴀᴍ <a href=https://t.me/{}>{}</a>, ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ ᴡɪᴛʜ ᴘʀᴇᴍɪᴜᴍ ꜰᴇᴀᴛᴜʀᴇꜱ.</b>"""
 
     
-    HELP_TXT = """🔹 Sᴇᴀʀᴄʜ Mᴏᴠɪᴇs Iɴ Tʜɪs Fᴏʀᴍᴀᴛ:
-    › ᴀᴠᴀᴛᴀʀ 2009 ✅
-    › ᴀᴠᴀᴛᴀʀ ✅
-    › ᴀᴠᴀᴛᴀʀ 2009 ʜɪɴᴅɪ ✅
-    › ᴀᴠᴀᴛᴀʀ ᴍᴏᴠɪᴇ ❌
-    › ᴀᴠᴀᴛᴀʀ ʜɪɴᴅɪ ᴅᴜʙʙᴇᴅ..❌
+    HELP_TXT = """├⸻⸻⸻⸻⸻⸻⸻
+├ <b>❌ Don't Send Like Foolish ❌</b>
+├⸻⸻⸻⸻⸻⸻⸻
+├ Avatar Movie
+├ The Batman Hindi
+├ Avengers Movie Bhejo
+├ Money Heist all Season
+├ Squid Game Season 2 in Hindi
+├ Wednesday Season 1 Episode 7 in Hindi
+├⸻⸻⸻⸻⸻⸻⸻
+├ <b>✅ Send Like Sensible ✅</b>
+├⸻⸻⸻⸻⸻⸻⸻
+├ The Batman
+├ Avatar 2024
+├ Avengers Endgame
+├ Money Heist S03
+├ Wednesday S01E07
+├⸻⸻⸻⸻⸻⸻⸻
+├ 📌 Just send correct name – nothing else
+├⸻⸻⸻⸻⸻⸻⸻ ﻿"""
 
-🔹 Sᴇᴀʀᴄʜ Wᴇʙ Sᴇʀɪᴇs Iɴ Tʜɪs Fᴏʀᴍᴀᴛ:
-    › ᴠɪᴋɪɴɢs S01 ✅
-    › ᴠɪᴋɪɴɢs S01E01 ✅
-    › ᴠɪᴋɪɴɢs S01 E01 ✅
-    › ᴠɪᴋɪɴɢs S01 ʜɪɴᴅɪ ᴅᴜʙʙ. ❌
-    › ᴠɪᴋɪɴɢs sᴇᴀsᴏɴ 1 ❌
-    › ᴠɪᴋɪɴɢs ᴡᴇʙ sᴇʀɪᴇs ❌ ﻿"""
-
-    ABOUT_TXT = """<b>╭────[ ᴍʏ ᴅᴇᴛᴀɪʟs ]────⍟
-├⍟ Mʏ Nᴀᴍᴇ : <a href=https://t.me/{}>{}</a>
-├⍟ Dᴇᴠᴇʟᴏᴘᴇʀ : <a href={}>ᴏᴡɴᴇʀ</a> 
-├⍟ Lɪʙʀᴀʀʏ : <a href='https://docs.pyrogram.org/'>ᴘʏʀᴏɢʀᴀᴍ</a>
-├⍟ Lᴀɴɢᴜᴀɢᴇ : <a href='https://www.python.org/download/releases/3.0/'>ᴘʏᴛʜᴏɴ 𝟹</a> 
-├⍟ Dᴀᴛᴀʙᴀsᴇ : <a href='https://www.mongodb.com/'>ᴍᴏɴɢᴏ ᴅʙ</a> 
-├⍟ Bᴏᴛ Sᴇʀᴠᴇʀ : <a href='https://heroku.com/'>ʜᴇʀᴏᴋᴜ</a> 
-├⍟ Bᴜɪʟᴅ Sᴛᴀᴛᴜs : ᴠ1.4 [ ꜱᴛᴀʙʟᴇ ]
-╰───────────────⍟</b>"""
+    ABOUT_TXT = """<b>🎉 I'm <a href=https://t.me/{}>{}</a>
+☃️ Cʀᴇᴀᴛᴇʀ <a href={}>Snowball</a> 
+🍿 Uɴʟɪᴍɪᴛᴇᴅ Mᴏᴠɪᴇs
+🎬 Gᴇᴛ Iɴsᴛᴀɴᴛ Fɪʟᴇ</b>"""
     RESTART_TXT = """
 <b>{} Bᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !
 
@@ -171,9 +172,7 @@ Nᴀᴍᴇ - {}
 
     PM_SEARCH_DISABLED_TXT = """<b>🙋 ʜᴇʏ {user} 😍
 
-ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ 🕵️ ʏᴏᴜʀ ғᴀᴠᴏʀɪᴛᴇ ᴍᴏᴠɪᴇs/sᴇʀɪᴇs ᴏɴʟʏ ⚝ ᴍɪss ᴘʀᴏᴠɪᴅᴇʀ ʀᴇǫᴜᴇsᴛ ⚝ ᴋɪɴᴅʟʏ ʀᴇǫᴜᴇsᴛ ɪɴ ʀᴇqᴜᴇꜱᴛ ɢʀᴏᴜᴘ
-
-<blockquote>আপনি আপনার প্রিয় মুভি/সিরিজ খুঁজতে পারেন ⚝ রিকোয়েস্ট গ্রুপ এ রিকোয়েস্ট করুন।</blockquote></b>"""
+ʏᴏᴜ ᴄᴀɴ sᴇᴀʀᴄʜ 🕵️ ʏᴏᴜʀ ғᴀᴠᴏʀɪᴛᴇ ᴍᴏᴠɪᴇs/sᴇʀɪᴇs ᴏɴʟʏ ⚝ ᴍɪss ᴘʀᴏᴠɪᴅᴇʀ ʀᴇǫᴜᴇsᴛ ⚝ ᴋɪɴᴅʟʏ ʀᴇǫᴜᴇsᴛ ɪɴ ʀᴇqᴜᴇꜱᴛ ɢʀᴏᴜᴘ</b>"""
 
     PM_LOG_TXT = """<b>#𝐏𝐌_𝐌𝐒𝐆
 
@@ -256,7 +255,7 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """<blockquote><a href="https://t.me/ProviderBotz">{file_name}</a></b>\n\n<blockquote>"""
+    CAPTION = """<blockquote><a href="https://t.me/+vkjRJwmDizo3MGI1">{file_name}</a></b>\n\n<blockquote>"""
 
     
     MOVIE_UPDATE_NOTIFY_TXT = """
@@ -304,7 +303,7 @@ sʜᴏᴡɴ ɪɴ : {remaining_seconds} <i>sᴇᴄ</i>⚡️
 ◉ 60 ᴅᴀʏꜱ - 75 ₹  / 75 ꜱᴛᴀʀ
 
 •─────•─────────•─────•
-🏷️ <a href='https://t.me/LazyProvider'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
+🏷️ <a href='https://t.me/AllFilesRobot'>ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ ᴘʀᴏᴏꜰ</a>
 
 ‼️ ᴍᴜꜱᴛ ꜱᴇɴᴅ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ᴀꜰᴛᴇʀ ᴘᴀʏᴍᴇɴᴛ.
 ‼️ ᴀꜰᴛᴇʀ ꜱᴇɴᴅɪɴɢ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ɢɪᴠᴇ ᴜꜱ ꜱᴏᴍᴇᴛɪᴍᴇꜱ ᴛᴏ ᴀᴅᴅ ʏᴏᴜ ɪɴ ᴘʀᴇᴍɪᴜᴍ ʟɪꜱᴛ."""
