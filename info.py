@@ -35,7 +35,7 @@ INDEX_CAPTION = is_enabled(environ.get('SAVE_CAPTION', "True"), True) # Save cap
 COVERX = is_enabled(environ.get('COVERX', "True"), True) # Use cover image for indexed files (default: True)
 # If you disable it then bot will use a default thumb for all files
 
-PICS_URL = (environ.get('PICS', 'https://i.ibb.co/qF943hMV/photo-2026-09-23-09-30-23-7688660735269658624.jpg https://i.ibb.co/VYC4my2n/photo-2026-09-23-09-31-24-7688660996251448320.jpg https://i.ibb.co/RTdNQPSY/photo-2026-09-23-09-30-54-7688660861969984512.jpg https://i.ibb.co/yFhNcJ6n/photo-2026-09-23-09-31-08-7688660927409981440.jpg')).split() #random anime girl img each time from aniwallpaper (Experimental)
+PICS_URL = (environ.get('PICS', 'https://i.ibb.co/nMrRxd9Y/photo-2026-09-23-09-34-57-7688661907135828992.jpg https://i.ibb.co/qF943hMV/photo-2026-09-23-09-30-23-7688660735269658624.jpg https://i.ibb.co/VYC4my2n/photo-2026-09-23-09-31-24-7688660996251448320.jpg https://i.ibb.co/RTdNQPSY/photo-2026-09-23-09-30-54-7688660861969984512.jpg https://i.ibb.co/yFhNcJ6n/photo-2026-09-23-09-31-08-7688660927409981440.jpg')).split() #random anime girl img each time from aniwallpaper (Experimental)
 PICS = (environ.get('PICS', 'https://graph.org/file/e6253dab7bf95abc521b1-c834bd1f3ff5cef253.jpg')).split()  # Sample pic
 NOR_IMG = environ.get("NOR_IMG", "https://graph.org/file/e20b5fdaf217252964202.jpg")
 MELCOW_PHOTO = environ.get("MELCOW_PHOTO", "https://graph.org/file/56b5deb73f3b132e2bb73.jpg")
@@ -64,7 +64,7 @@ auth_channels     = environ.get("AUTH_CHANNELS", "-1002291269785")# Channels for
 # ============================
 # Payment Configuration
 # ============================
-QR_CODE = environ.get('QR_CODE', 'https://graph.org/file/e419f801841c2ee3db0fc.jpg')    # QR code image for payments
+QR_CODE = environ.get('QR_CODE', 'https://i.ibb.co/qF943hMV/photo-2026-09-23-09-30-23-7688660735269658624.jpg')    # QR code image for payments
 OWNER_UPI_ID = environ.get('OWNER_UPI_ID', 'ɴᴏ ᴀᴠᴀɪʟᴀʙʟᴇ ʀɪɢʜᴛ ɴᴏᴡ')    # Owner UPI ID for payments
 
 STAR_PREMIUM_PLANS = {
