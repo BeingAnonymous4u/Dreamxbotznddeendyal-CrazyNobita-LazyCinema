@@ -397,7 +397,7 @@ async def start(client, message):
                 await asyncio.sleep(DELETE_TIME)
                 for x in filesarr:
                     await x.delete()
-                await k.edit_text("<b>ʏᴏᴜʀ ᴀʟʟ ᴠɪᴅᴇᴏꜱ/ꜰɪʟᴇꜱ ᴀʀᴇ ᴅᴇʟᴇᴛᴇᴅ ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ !\nᴋɪɴᴅʟʏ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ</b>")
+                await k.edit_text("<i>⊘ This video/file was deleted to avoid copyright</i>")
                 return
             except Exception as e:
                 logger.exception(e)
