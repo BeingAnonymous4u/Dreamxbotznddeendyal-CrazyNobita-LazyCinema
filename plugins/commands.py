@@ -517,7 +517,7 @@ async def stream_buttons(user_id: int, file_id: str):
                 [InlineKeyboardButton('📌 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ 📌', url=UPDATE_CHNL_LNK, style=enums.ButtonStyle.PRIMARY)]
             ]
     else:
-        return [[InlineKeyboardButton('📌 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ 📌', url=UPDATE_CHNL_LNK)]]
+        return [[InlineKeyboardButton('📌 ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ 📌', url=UPDATE_CHNL_LNK, style=enums.ButtonStyle.PRIMARY)]]
     
 @Client.on_message(filters.command('logs') & filters.user(ADMINS))
 async def log_file(bot, message):
