@@ -39,7 +39,7 @@ REQUEST_INVITE_LINK_CACHE: dict[int, str] = {}
 async def start(client, message):
     sticker = None
     try:
-        stick_id = "CAACAgUAAxkBAAERyopqj-d-Vhpi7DKRWUsuh_vySxWr_QAClxsAAivL4FYGOaZ8AAHy3-89BA"
+        stick_id = "CAACAgUAAxkBAAEH9cpqtReEGQWtlINGBGYS4sgqS9subQACBAADwSQxMYnlHW4Ls8gQHgQ"
         try:
             sticker = await message.reply_sticker(sticker=stick_id)
         except Exception as e:
@@ -135,7 +135,7 @@ async def start(client, message):
             await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
         if len(message.command) != 2:
             buttons = [[
-                    InlineKeyboardButton('✧ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ✧', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true', style=enums.ButtonStyle.SUCCESS)
+                    InlineKeyboardButton('➜ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ➜', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true', style=enums.ButtonStyle.SUCCESS)
                 ],[
                     InlineKeyboardButton(' ✨ ᴛᴏᴘ sᴇᴀʀᴄʜɪɴɢ  ', callback_data='topsearch', style=enums.ButtonStyle.PRIMARY),
                     InlineKeyboardButton(' ᴀʙᴏᴜᴛ 📖', callback_data='about', style=enums.ButtonStyle.DANGER)
@@ -168,7 +168,7 @@ async def start(client, message):
 
         if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
             buttons = [[
-                    InlineKeyboardButton('✧ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ✧', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true', style=enums.ButtonStyle.SUCCESS)
+                    InlineKeyboardButton('➜ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ➜', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true', style=enums.ButtonStyle.SUCCESS)
                 ],[
                     InlineKeyboardButton(' ✨ ᴛᴏᴘ sᴇᴀʀᴄʜɪɴɢ  ', callback_data='topsearch', style=enums.ButtonStyle.PRIMARY),
                     InlineKeyboardButton(' ᴀʙᴏᴜᴛ 📖', callback_data='about', style=enums.ButtonStyle.DANGER)
@@ -247,7 +247,7 @@ async def start(client, message):
                       ],[
                         InlineKeyboardButton('UPI ID Copy Karein ??', copy_text=CopyTextButton(text=OWNER_UPI_ID), style=enums.ButtonStyle.PRIMARY)
                       ],[
-                        InlineKeyboardButton('❌ ᴄʟᴏꜱᴇ ❌', callback_data='close_data', style=enums.ButtonStyle.DANGER)
+                        InlineKeyboardButton('❤️‍🩹! ᴄʟᴏꜱᴇ ❤️‍🩹!', callback_data='close_data', style=enums.ButtonStyle.DANGER)
                       ]]
             reply_markup = InlineKeyboardMarkup(buttons)
             await message.reply_photo(
