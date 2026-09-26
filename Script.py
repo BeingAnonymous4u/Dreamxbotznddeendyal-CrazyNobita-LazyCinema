@@ -255,8 +255,7 @@ Nᴀᴍᴇ : {}
 
 Mᴇꜱꜱᴀɢᴇ : <b>{}</b>"""
     
-    CAPTION = """<blockquote><a href="https://t.me/+vkjRJwmDizo3MGI1">{file_name}</a></b>\n\n<blockquote>"""
-
+    CAPTION = """"<b><a href="https://t.me/+vkjRJwmDizo3MGI1">{file_name}</a></b>"""
     
     MOVIE_UPDATE_NOTIFY_TXT = """
 </b><a href={poster_url}>📥</a><a href={imdb_url}>New {tag} Added</a></b>
