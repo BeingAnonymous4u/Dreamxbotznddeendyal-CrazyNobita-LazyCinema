@@ -1263,7 +1263,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "about":
         buttons = [[
             InlineKeyboardButton('‼️ ᴅɪꜱᴄʟᴀɪᴍᴇʀ ‼️', callback_data='disclaimer', style=enums.ButtonStyle.SUCCESS),
-            InlineKeyboardButton (' 🌹 ᴄʜᴀᴛꜱ 🌹 ', callback_data='source', style=enums.ButtonStyle.PRIMARY),
+        ],[
+            InlineKeyboardButton (' 🌿 ᴜᴘᴅᴀᴛᴇ 🍃 ', callback_data='source', style=enums.ButtonStyle.PRIMARY),
         ],[
             InlineKeyboardButton('⇋ ʙᴀᴄᴋ ᴛᴏ ʜᴏᴍᴇ ⇋', callback_data='start', style=enums.ButtonStyle.DANGER)
         ]]
@@ -1310,7 +1311,9 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     elif query.data == "source":
         buttons = [[
-            InlineKeyboardButton('ᴩʀᴏᴠɪᴅᴇʀʙᴏᴛᴢ', url='https://tx.me/ProviderBotz', style=enums.ButtonStyle.PRIMARY),
+            InlineKeyboardButton('🎞 ᴍᴏᴠɪᴇ ɢʀᴏᴜᴘ ', url='https://t.me/+vYhLZJODP81iMTg1', style=enums.ButtonStyle.PRIMARY),
+            InlineKeyboardButton('☸️ ʙᴀᴄᴋᴜᴘ', url='https://t.me/+vkjRJwmDizo3MGI1', style=enums.ButtonStyle.SUCCESS)
+        ],[
             InlineKeyboardButton('⇋ ʙᴀᴄᴋ ⇋', callback_data='about', style=enums.ButtonStyle.DANGER)
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
